@@ -30,6 +30,7 @@
 
         recognition.onend = function() {
           recognizing = false;
+          document.getElementById('transcript').value += "xxxx";
           document.getElementById('startButton').disabled = false;
         };
 
@@ -37,7 +38,8 @@
           document.getElementById('transcript').value += "++++";
           setTimeout(function() {
             recognition.stop();
-          }, 0);
+            document.getElementById('transcript').value += "%%%";
+          }, 10000);
         }
 
         recognition.onresult = function(event) {
