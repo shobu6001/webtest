@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Speech Recognition Demo</title>
+  </head>
+  <body>
+    <textarea id="transcript" rows="5" cols="50"></textarea><br>
+    <button id="startButton" onclick="startRecognition()">Start</button>
+    <script>
+      var recognition;
+      var recognizing = false;
+
+      function startRecognition() {
+        if (!('webkitSpeechRecognition' in window)) {
+          alert("Web Speech APIがサポートされていません。");
+          return;
+        }
+
+        recognition = new webkitSpeechRecognition();
+        recognition.lang = 'ja-JP';
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        recognition.onstart = function() {
+          recognizing = true;
+          document.getElementById('startButton').disabled = true;
+        };
+
+        recognition.onend = function() {
+          recognizing = false;
+          document.getElementById('startButton').disabled = false;
+        };
+
+        recognition.onresult = function(event) {
+          var interim_transcript = '';
+          for (var i = event.resultIndex; i < event.results.length; i++) {
+            if (event.results[i].isFinal) {
+              document.getElementById('transcript').value += event.results[i][0].transcript;
+            } else {
+              interim_transcript += event.results[i][0].transcript;
+            }
+          }
+          if (interim_transcript != '') {
+            document.getElementById('transcript').value += interim_transcript;
+          }
+        };
+
+        recognition.start();
+      }
+    </script>
+  </body>
+</html>
