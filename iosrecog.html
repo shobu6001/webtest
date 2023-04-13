@@ -33,6 +33,7 @@
         };
 
         recognition.onspeechend = function() {
+          document.getElementById('transcript').value += "++++";
           recognition.stop();
         }
 
@@ -44,6 +45,10 @@
             }
             document.getElementById('transcript').value = event.results[i][0].transcript;
           }
+          setTimeout(function() {
+            document.getElementById('transcript').value += "----";
+            recognition.stop();
+          }, 3000);
         };
 
         recognition.start();
