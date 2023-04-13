@@ -36,13 +36,13 @@
           var interim_transcript = '';
           for (var i = event.resultIndex; i < event.results.length; i++) {
             if (event.results[i].isFinal) {
-              document.getElementById('transcript').value += event.results[i][0].transcript + "##";
+              document.getElementById('transcript').value += event.results[i][0].transcript + "#\n";
             } else {
-              interim_transcript += event.results[i][0].transcript + ":::";
+              document.getElementById('transcript').value += event.results[i][0].transcript + ":\n";
             }
           }
           if (interim_transcript != '') {
-            document.getElementById('transcript').value += "----" + interim_transcript + "----";
+            document.getElementById('transcript').value += "----\n";
           }
         };
 
