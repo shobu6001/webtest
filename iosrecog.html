@@ -7,7 +7,7 @@
   <body>
     <textarea id="transcript" rows="5" cols="50"></textarea><br>
     <button id="startButton" onclick="startRecognition()">Start</button>
-    a
+    b
     <script>
       var recognition;
       var recognizing = false;
@@ -32,6 +32,7 @@
           recognizing = false;
           document.getElementById('transcript').value += "xxxx";
           document.getElementById('startButton').disabled = false;
+          recognition.stop();
         };
 
         recognition.onspeechend = function() {
