@@ -32,11 +32,14 @@
           document.getElementById('startButton').disabled = false;
         };
 
+        recognition.onspeechend = function() {
+          recognition.stop();
+        }
+
         recognition.onresult = function(event) {
           var interim_transcript = '';
           for (var i = event.resultIndex; i < event.results.length; i++) {
             if (event.results[i].isFinal) {
-              recognition.stop();
               break;
             }
             document.getElementById('transcript').value = event.results[i][0].transcript;
